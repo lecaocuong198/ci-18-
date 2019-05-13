@@ -1,24 +1,29 @@
-public class Human {//Employee
-    //thuoc tinh
-    String name;
-    int age;
-    String sex;
+public class Human { // Employee
+    // thuoc tinh
+    String name; // = null
+    int age; // = 0
+    String gender; // = null
+
     // ham tao
-    public Human(){//Ham tao rong
-        name  = "New Person";
+    public Human() { // ham tao rong
+        name = "New Person";
         age = 20;
-        sex = "male";
-    }
-    public Human(String name,int age,String sex){//Ham tao day du
-        this.name = name;
-        this.age = age;
-        this.sex = sex;
-    }
-    public  void eat(){
-        System.out.println(name + "Eating...");
+        gender = "male";
     }
 
-    public  void sleep(){
-        System.out.println(name + "Sleeping...");
+    // ham tao day du
+    public Human(String name, int age, String gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    // phuong thuc
+    public void eat() {
+        System.out.println(name + " eating..");
+    }
+
+    public void sleep() {
+        System.out.println(name + " sleeping..");
     }
 }
