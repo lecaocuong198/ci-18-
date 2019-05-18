@@ -1,5 +1,6 @@
 package game;
 
+import game.Physics.BoxCollider;
 import player.Player;
 import player.PlayerBullet;
 
@@ -39,19 +40,35 @@ public class GameObject {
         }
         return null;
     }
+    public static <E extends GameObject> E findIntersects(Class<E> cls,BoxCollider hitbox){
+        for (int i = 0; i < objects.size() ; i++) {
+            GameObject object = objects.get(i);
+            //1.active
+            //2.object ~cls
+            //3.object.hitbox!null && object.hitbox.intersects(hitbox)
+            if(object.active
+                    && cls.isAssignableFrom(object.getClass())
+                    && object.hitbox.intersects(hitbox) )
+            {
+                return (E) object;
+            }
+        }return null;
+    }
 
 
 
 
-
-
+    public Vector2D velocity;
     public BufferedImage image;
     public Vector2D position;
     public boolean active;
+    public BoxCollider hitbox;
+
 
 
     public GameObject(){
         objects.add(this);
+        velocity = new Vector2D();
         position = new Vector2D();
         active = true;
     }
@@ -62,7 +79,9 @@ public class GameObject {
         }
     }
 
-    public void run(){ }
+    public void run(){
+        position.add(velocity.x,velocity.y);
+    }
 
 
     public void deactive(){
