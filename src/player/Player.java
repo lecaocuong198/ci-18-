@@ -3,6 +3,8 @@ package player;
 import game.GameObject;
 import game.KeyEventPress;
 import game.Physics.BoxCollider;
+import game.items.CheckItems;
+import game.renderer.Renderer;
 import tklibs.Mathx;
 import tklibs.SpriteUtils;
 
@@ -11,11 +13,14 @@ import java.util.ArrayList;
 
 public class Player extends GameObject {
 
+    public boolean immune;
     public Player() {
-        image = SpriteUtils.loadImage("assets/images/players/straight/0.png");
+//        image = SpriteUtils.loadImage("assets/images/players/straight/0.png");
+        renderer =new Renderer("assets/images/players/straight");
         position.set(200,500);
-        hitbox = new BoxCollider(this,image.getWidth(),image.getHeight());
-        hp = 1;
+        hitbox = new BoxCollider(this,18,18);
+        hp = 5;
+        immune = false;
     }
 
 
@@ -25,14 +30,44 @@ public class Player extends GameObject {
         this.move();
         this.limitposition();
         this.fire();
+        this.checkImmune();
+        this.item();
 //        System.out.println(objects.size());
     }
-    public void takeDamage(int damage){
-        hp -= damage;
-        if(hp<=0){
-            hp = 0;
-            this.deactive();
+
+    int renderCout = 0;
+    @Override
+    public void render(Graphics g){
+          if(immune){
+            renderCout++;
+            if (renderCout%3==0){
+            super.render(g);}
+
+          }else super.render(g);
+    }
+    int immunecount =0;
+    private void checkImmune() {
+        if(immune){
+            immunecount++;
+            if (immunecount>120){
+                immune = false;
+            }
+        }else {
+            immunecount = 0;
         }
+
+
+    }
+
+    public void takeDamage(int damage){
+          if(!immune){
+            hp -= damage;
+            if(hp<=0){
+                hp = 0;
+                this.deactive();
+            }else{
+                immune = true;
+            }}
     }
 
     public void move(){
@@ -70,4 +105,11 @@ public class Player extends GameObject {
 
             count = 0;
     }}
+    public void item(){
+        count++;
+        if(count >50){
+            CheckItems items = GameObject.recycle(CheckItems.class);
+
+            count =0;}
+    }
     }

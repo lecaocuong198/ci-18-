@@ -2,16 +2,18 @@ package game.Enemies;
 
 import game.GameObject;
 import game.Physics.BoxCollider;
+import game.renderer.Renderer;
 import tklibs.SpriteUtils;
 
 public class Enemies extends GameObject {
     public int hp;
     public Enemies(){
-        image = SpriteUtils.loadImage("assets/images/enemies/level0/black/1.png");
+//        image = SpriteUtils.loadImage("assets/images/enemies/level0/black/1.png");
+        renderer = new Renderer("assets/images/enemies/level0/black");
         position.set(0,-50);
         velocity.set(0,-3);
         velocity.setAngle(Math.toRadians(30));
-        hitbox = new BoxCollider(this,image.getWidth(),image.getHeight());
+        hitbox = new BoxCollider(this,20,20);
         hp = 3;
     }
     public void takeDamage(int damage){

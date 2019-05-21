@@ -2,15 +2,17 @@ package game.Enemies;
 
 import game.GameObject;
 import game.Physics.BoxCollider;
+import game.renderer.Renderer;
 import player.Player;
 import tklibs.SpriteUtils;
 
 public class EnemyBullet extends GameObject {
     int damage;
     public EnemyBullet(){
-        image = SpriteUtils.loadImage("assets/images/enemies/bullets/blue.png");
+//        image = SpriteUtils.loadImage("assets/images/enemies/bullets/blue.png");
+        renderer = new Renderer("assets/images/enemies/bullets");
         velocity.set(0,-6);
-        hitbox = new BoxCollider(this,image.getWidth(),image.getHeight());
+        hitbox = new BoxCollider(this,18,18);
         damage = 1;
     }
     @Override
@@ -30,7 +32,7 @@ public class EnemyBullet extends GameObject {
         }}
 
     private void deactiveIfNeeded(){
-        if(position.y<-30){
+        if(position.y>600){
             this.deactive();
         }
     }

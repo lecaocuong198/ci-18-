@@ -1,6 +1,7 @@
 package game;
 
 import game.Physics.BoxCollider;
+import game.renderer.Renderer;
 import player.Player;
 import player.PlayerBullet;
 
@@ -59,8 +60,10 @@ public class GameObject {
 
 
     public Vector2D velocity;
-    public BufferedImage image;
+//    public BufferedImage image;
+    //Renderer renderer
     public Vector2D position;
+    public Renderer renderer;
     public boolean active;
     public BoxCollider hitbox;
 
@@ -74,8 +77,8 @@ public class GameObject {
     }
 
     public void render(Graphics g){
-        if(image!=null){
-            g.drawImage(image,(int) position.x,(int)position.y,null);
+        if(renderer!=null){
+            renderer.render(g,this);
         }
     }
 
